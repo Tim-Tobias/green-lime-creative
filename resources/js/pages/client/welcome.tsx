@@ -1,6 +1,5 @@
 import { VideoPlayer, WorkCard } from '@/components';
 import { ImageReveal, PageWrapper, ScrollReveal } from '@/components/animations';
-import { usePageTransition } from '@/hooks/usePageTransition';
 import { Head } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 
@@ -8,8 +7,6 @@ import { Button } from '@/components/ui/button';
 import HeroVideo from '../../../videos/[Visualizer] Milena 밀레나 - Older than you.mp4';
 
 export default function Welcome() {
-    const { heroDelay, imageRevealDelay } = usePageTransition();
-
     // Sample work data
     const workData = [
         {
@@ -35,6 +32,42 @@ export default function Welcome() {
     return (
         <>
             <Head title="Green Lime - Creative Agency">
+                {/* Basic Meta Tags */}
+                <meta
+                    name="description"
+                    content="Green Lime is a creative agency specializing in brand identity, digital experiences, and content creation. We help brands tell their stories in compelling and authentic ways."
+                />
+                <meta name="keywords" content="creative agency, brand identity, digital design, content creation, marketing, branding, web design" />
+                <meta name="author" content="Green Lime Creative Agency" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+                {/* Open Graph Meta Tags */}
+                <meta property="og:title" content="Green Lime - Creative Agency" />
+                <meta
+                    property="og:description"
+                    content="Make impact through creativity. We create brands that live at the intersection of clarity and surprise."
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://greenlime.com" />
+                <meta property="og:image" content="https://greenlime.com/og-image.jpg" />
+                <meta property="og:site_name" content="Green Lime" />
+
+                {/* Twitter Card Meta Tags */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Green Lime - Creative Agency" />
+                <meta
+                    name="twitter:description"
+                    content="Make impact through creativity. We create brands that live at the intersection of clarity and surprise."
+                />
+                <meta name="twitter:image" content="https://greenlime.com/twitter-image.jpg" />
+
+                {/* Additional Meta Tags */}
+                <meta name="robots" content="index, follow" />
+                <meta name="language" content="English" />
+                <meta name="theme-color" content="#096260" />
+                <link rel="canonical" href="https://greenlime.com" />
+
+                {/* Existing Font Links */}
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
@@ -96,14 +129,13 @@ export default function Welcome() {
                         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
                             <div className="md:w-1/2">
                                 <ScrollReveal direction="left" delay={0.5}>
-                                    <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">About Green Lime</h2>
                                     <p className="text-lg text-gray-600">
                                         We are a creative agency that specializes in brand identity, digital experiences, and content creation. Our
                                         mission is to help brands tell their stories in compelling and authentic ways.
                                     </p>
                                     <Button
                                         variant="outline"
-                                        className="mt-6 border border-gray-400 bg-transparent px-4 py-2 text-xs tracking-wider text-black uppercase"
+                                        className="mt-6 rounded-full border border-gray-400 bg-transparent px-6 py-2 text-xs tracking-wider text-black uppercase"
                                     >
                                         SEE THE WORK
                                     </Button>
@@ -125,7 +157,7 @@ export default function Welcome() {
                 <section className="bg-[#E6E6E6] py-20">
                     <div className="container mx-auto px-6">
                         {/* Work Grid */}
-                        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid gap-8 md:grid-cols-3">
                             {workData.map((work, index) => (
                                 <ScrollReveal key={index} direction="right" delay={0.3 * (index + 1)}>
                                     <WorkCard title={work.title} description={work.description} image={work.image} className="h-full" />

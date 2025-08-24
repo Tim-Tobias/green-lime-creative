@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-import { usePageTransition } from '@/hooks/usePageTransition';
 
 interface HeaderProps {
     className?: string;
@@ -11,7 +10,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const { headerDelay, navDelay } = usePageTransition();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -56,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
         >
             <div className="container mx-auto flex items-center justify-between px-8 py-6">
                 <div className="flex items-center">
-                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: headerDelay, duration: 0.4 }}>
+                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.2, duration: 0.4 }}>
                         <Link href="/" className="text-2xl font-bold text-[#BDD330]">
                             * GREEN LIME
                         </Link>
@@ -75,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
                             key={link.label}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: navDelay + 0.1 * i, duration: 0.4 }}
+                            transition={{ delay: 1.3 + 0.1 * i, duration: 0.4 }}
                         >
                             <Link href={link.href} className="text-[#BDD330] transition-colors">
                                 {link.label}

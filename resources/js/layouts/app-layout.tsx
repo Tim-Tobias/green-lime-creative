@@ -1,27 +1,14 @@
-import React, { useEffect } from 'react';
-import { useSmooth } from '@/hooks/useSmooth';
+import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
+import { type BreadcrumbItem } from '@/types';
+import { type ReactNode } from 'react';
 
 interface AppLayoutProps {
-    children: React.ReactNode;
+    children: ReactNode;
+    breadcrumbs?: BreadcrumbItem[];
 }
 
-export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
-    const lenis = useSmooth();
-
-    // Disable smooth scroll on certain elements if needed
-    useEffect(() => {
-        if (lenis) {
-            // Example: disable on modals
-            const modals = document.querySelectorAll('[data-lenis-prevent]');
-            modals.forEach(modal => {
-                lenis.stop();
-            });
-        }
-    }, [lenis]);
-
-    return (
-        <div className="app-layout">
-            {children}
-        </div>
-    );
-};
+export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
+    <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
+        {children}
+    </AppLayoutTemplate>
+);
