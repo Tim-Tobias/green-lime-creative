@@ -30,7 +30,7 @@ export default function Contact() {
                 {/* Main Contact Section */}
                 <section className="bg-white">
                     <div className="container mx-auto">
-                        <div className="grid grid-cols-1 py-40 lg:grid-cols-2">
+                        <div className="grid grid-cols-1 md:py-40 lg:grid-cols-2">
                             {/* Left Photo Section */}
                             <div className="relative aspect-[3/4] px-5 lg:px-0">
                                 <PhotoSlider
@@ -110,8 +110,8 @@ export default function Contact() {
                             {/* PHOTOS */}
                             <div className="relative col-span-2">
                                 <ScrollReveal delay={0.4}>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="aspect-[3/4]">
+                                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                        <div className="md:aspect-[3/4]">
                                             <PhotoSlider
                                                 photos={officePhotos1}
                                                 className="h-full w-full"
@@ -120,7 +120,7 @@ export default function Contact() {
                                                 autoplay={true}
                                             />
                                         </div>
-                                        <div className="aspect-[3/4]">
+                                        <div className="md:aspect-[3/4]">
                                             <PhotoSlider
                                                 photos={officePhotos2}
                                                 className="h-full w-full"
