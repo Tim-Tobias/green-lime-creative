@@ -6,29 +6,28 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import HeroVideo from '../../../videos/[Visualizer] Milena 밀레나 - Older than you.mp4';
 
-export default function Welcome() {
-    // Sample work data
-    const workData = [
-        {
-            title: 'Brand Identity Design',
-            description:
-                'Complete brand identity redesign for a modern tech startup, including logo design, color palette, and brand guidelines that reflect innovation and trust.',
-            image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop',
-        },
-        {
-            title: 'Social Media Campaign',
-            description:
-                'Creative social media campaign that increased engagement by 300% through compelling visual storytelling and strategic content planning.',
-            image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop',
-        },
-        {
-            title: 'Product Photography',
-            description:
-                'Professional product photography session that showcases the beauty and functionality of luxury consumer goods with artistic lighting and composition.',
-            image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop',
-        },
-    ];
+const workData = [
+    {
+        title: 'Brand Identity Design',
+        description:
+            'Complete brand identity redesign for a modern tech startup, including logo design, color palette, and brand guidelines that reflect innovation and trust.',
+        image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop',
+    },
+    {
+        title: 'Social Media Campaign',
+        description:
+            'Creative social media campaign that increased engagement by 300% through compelling visual storytelling and strategic content planning.',
+        image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=600&fit=crop',
+    },
+    {
+        title: 'Product Photography',
+        description:
+            'Professional product photography session that showcases the beauty and functionality of luxury consumer goods with artistic lighting and composition.',
+        image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop',
+    },
+];
 
+export default function Welcome() {
     return (
         <>
             <Head title="Green Lime - Creative Agency">
@@ -129,16 +128,18 @@ export default function Welcome() {
                         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
                             <div className="md:w-1/2">
                                 <ScrollReveal direction="left" delay={0.5}>
-                                    <p className="text-lg text-gray-600">
+                                    <p className="text-center text-lg text-gray-600 md:text-left">
                                         We are a creative agency that specializes in brand identity, digital experiences, and content creation. Our
                                         mission is to help brands tell their stories in compelling and authentic ways.
                                     </p>
-                                    <Button
-                                        variant="outline"
-                                        className="mt-6 rounded-full border border-gray-400 bg-transparent px-6 py-2 text-xs tracking-wider text-black uppercase"
-                                    >
-                                        SEE THE WORK
-                                    </Button>
+                                    <div className="mx-auto w-fit md:mx-0">
+                                        <Button
+                                            variant="outline"
+                                            className="mt-6 rounded-full border border-gray-400 bg-transparent px-6 py-2 text-xs tracking-wider text-black uppercase"
+                                        >
+                                            SEE THE WORK
+                                        </Button>
+                                    </div>
                                 </ScrollReveal>
                             </div>
                             <div className="flex justify-end md:w-1/2">

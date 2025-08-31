@@ -10,3 +10,15 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return Inertia::render('client/about');
 })->name('about');
+
+Route::get('/works', function () {
+    return Inertia::render('client/works');
+})->name('works');
+
+Route::get('/careers', function () {
+    return Inertia::render('client/careers');
+})->name('careers');
+
+Route::get('/contact', function () {
+    return Inertia::render('client/contact');
+})->name('contact');

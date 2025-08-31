@@ -12,14 +12,13 @@ interface PreloaderProps {
 export function Preloader({ duration = 2, delay = 0, backgroundColor = '#BDD330', textColor = '#096260', text = 'GREEN LIME' }: PreloaderProps) {
     const [loading, setLoading] = useState(true);
 
-    // Add overflow hidden to body when preloader is active
     useEffect(() => {
         if (loading) {
-            document.documentElement.style.overflow = 'hidden'; // Also set on html element
+            document.body.style.overflow = 'hidden'; // Also set on html element
 
             // Restore original overflow when preloader is removed
             return () => {
-                document.documentElement.style.overflow = '';
+                document.body.style.overflow = '';
             };
         }
     }, [loading]);
