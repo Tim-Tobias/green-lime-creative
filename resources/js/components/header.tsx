@@ -11,8 +11,51 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [isOnLimeSection, setIsOnLimeSection] = useState(false);
+    const [currentBgColor, setCurrentBgColor] = useState<string>('#096260'); // Default teal
     const isMobile = useIsMobile();
+
+    // Define color mappings for header based on background
+    const getHeaderColors = (bgColor: string) => {
+        switch (bgColor) {
+            case '#C4D82F': // Lime background
+                return {
+                    text: '#096260', // Dark teal text
+                    hamburger: '#096260',
+                };
+            case '#E6E6E6': // Light gray background
+                return {
+                    text: '#090909', // Black text
+                    hamburger: '#090909',
+                };
+            case '#FFFFFF': // White background
+            case 'white':
+                return {
+                    text: '#096260', // Dark teal text
+                    hamburger: '#096260',
+                };
+            case '#096260': // Teal background
+            default:
+                return {
+                    text: '#BDD330', // Lime text
+                    hamburger: '#FFFFFF', // White hamburger
+                };
+        }
+    };
+
+    // Get appropriate logo based on background color
+    const getLogoSrc = (bgColor: string) => {
+        switch (bgColor) {
+            case '#C4D82F': // Lime background - use black logo
+                return '/logo/Logogram-teal.png';
+            case '#E6E6E6': // Light gray background - use black logo
+            case '#FFFFFF': // White background - use black logo
+            case 'white':
+                return '/logo/Logogram-black.png';
+            case '#096260': // Teal background - use lime logo
+            default:
+                return '/logo/Logogram-lime.png';
+        }
+    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -31,63 +74,88 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
     }, []);
 
     useEffect(() => {
-        const checkLimeSection = () => {
-            // Check if we're on a section with lime background
-            const sections = document.querySelectorAll('section[data-bg-color="#C4D82F"]');
-            let onLimeSection = false;
+        const checkCurrentSection = () => {
+            // Get all sections with data-bg-color or check computed background color
+            const sections = document.querySelectorAll('section');
+            const headerHeight = 80; // Approximate header height
+            let detectedBgColor = '#096260'; // Default
 
             sections.forEach((section) => {
                 const rect = section.getBoundingClientRect();
-                const headerHeight = 80; // Approximate header height
                 if (rect.top <= headerHeight && rect.bottom >= headerHeight) {
-                    onLimeSection = true;
+                    // First check for data-bg-color attribute
+                    const dataBgColor = section.getAttribute('data-bg-color');
+                    if (dataBgColor) {
+                        detectedBgColor = dataBgColor;
+                    } else {
+                        // Fallback: check computed background color from classes
+                        const computedStyle = window.getComputedStyle(section);
+                        const bgColor = computedStyle.backgroundColor;
+
+                        // Convert common RGB values to hex for consistency
+                        if (bgColor === 'rgb(196, 216, 47)')
+                            detectedBgColor = '#C4D82F'; // Lime
+                        else if (bgColor === 'rgb(9, 98, 96)')
+                            detectedBgColor = '#096260'; // Teal
+                        else if (bgColor === 'rgb(230, 230, 230)')
+                            detectedBgColor = '#E6E6E6'; // Light gray
+                        else if (bgColor === 'rgb(255, 255, 255)' || bgColor === 'white') detectedBgColor = '#FFFFFF'; // White
+
+                        // Check for Tailwind classes as fallback
+                        const classList = section.classList.toString();
+                        if (classList.includes('bg-[#C4D82F]')) detectedBgColor = '#C4D82F';
+                        else if (classList.includes('bg-[#096260]')) detectedBgColor = '#096260';
+                        else if (classList.includes('bg-[#E6E6E6]')) detectedBgColor = '#E6E6E6';
+                        else if (classList.includes('bg-white')) detectedBgColor = '#FFFFFF';
+                        else if (classList.includes('bg-gray-50')) detectedBgColor = '#E6E6E6';
+                    }
                 }
             });
 
-            setIsOnLimeSection(onLimeSection);
+            setCurrentBgColor(detectedBgColor);
         };
 
         // Check immediately on mount and page change
-        checkLimeSection();
+        checkCurrentSection();
 
         // Add scroll listener to check during scroll
-        window.addEventListener('scroll', checkLimeSection);
-        
+        window.addEventListener('scroll', checkCurrentSection);
+
         // Add listener for page changes (for SPA navigation)
         const handlePageChange = () => {
             // Small delay to ensure DOM is updated
-            setTimeout(checkLimeSection, 100);
+            setTimeout(checkCurrentSection, 100);
         };
-        
+
         // Listen for popstate (browser back/forward)
-         window.addEventListener('popstate', handlePageChange);
-         
-         // Listen for Inertia navigation events
-         const removeInertiaListener = router.on('navigate', () => {
-             handlePageChange();
-         });
-         
-         // Listen for pushstate/replacestate (programmatic navigation)
-         const originalPushState = history.pushState;
-         const originalReplaceState = history.replaceState;
-         
-         history.pushState = function(...args) {
-             originalPushState.apply(history, args);
-             handlePageChange();
-         };
-         
-         history.replaceState = function(...args) {
-             originalReplaceState.apply(history, args);
-             handlePageChange();
-         };
+        window.addEventListener('popstate', handlePageChange);
+
+        // Listen for Inertia navigation events
+        const removeInertiaListener = router.on('navigate', () => {
+            handlePageChange();
+        });
+
+        // Listen for pushstate/replacestate (programmatic navigation)
+        const originalPushState = history.pushState;
+        const originalReplaceState = history.replaceState;
+
+        history.pushState = function (...args) {
+            originalPushState.apply(history, args);
+            handlePageChange();
+        };
+
+        history.replaceState = function (...args) {
+            originalReplaceState.apply(history, args);
+            handlePageChange();
+        };
 
         return () => {
-             window.removeEventListener('scroll', checkLimeSection);
-             window.removeEventListener('popstate', handlePageChange);
-             removeInertiaListener();
-             history.pushState = originalPushState;
-             history.replaceState = originalReplaceState;
-         };
+            window.removeEventListener('scroll', checkCurrentSection);
+            window.removeEventListener('popstate', handlePageChange);
+            removeInertiaListener();
+            history.pushState = originalPushState;
+            history.replaceState = originalReplaceState;
+        };
     }, []);
 
     // Prevent body scroll when menu is open
@@ -118,11 +186,18 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
             <div className="container mx-auto flex items-center justify-between px-8 py-4">
                 <div className="flex items-center">
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.2, duration: 0.4 }}>
-                        <Link
-                            href="/"
-                            className={cn('text-2xl font-bold transition-colors duration-300', isOnLimeSection ? 'text-[#096260]' : 'text-[#BDD330]')}
-                        >
-                            * GREEN LIME
+                        <Link href="/" className={cn('transition-opacity duration-300 hover:opacity-80')}>
+                            <span className="flex items-center gap-1">
+                                <img src={getLogoSrc(currentBgColor)} alt="GREENLIME" className="h-8 w-auto transition-all duration-300" />
+                                <h1
+                                    className="text-3xl leading-0 font-bold mt-3"
+                                    style={{
+                                        color: getHeaderColors(currentBgColor).text,
+                                    }}
+                                >
+                                    GREENLIME
+                                </h1>
+                            </span>
                         </Link>
                     </motion.div>
                 </div>
@@ -143,7 +218,8 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
                         >
                             <Link
                                 href={link.href}
-                                className={cn('transition-colors duration-300', isOnLimeSection ? 'text-[#096260]' : 'text-[#BDD330]')}
+                                className={cn('transition-colors duration-300')}
+                                style={{ color: getHeaderColors(currentBgColor).text }}
                             >
                                 {link.label}
                             </Link>
@@ -159,15 +235,18 @@ export const Header: React.FC<HeaderProps> = ({ className = '' }) => {
                 >
                     <motion.span
                         animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-                        className={cn('block h-0.5 w-6 transition-all duration-300', isOnLimeSection ? 'bg-[#096260]' : 'bg-white')}
+                        className="block h-0.5 w-6 transition-all duration-300"
+                        style={{ backgroundColor: getHeaderColors(currentBgColor).hamburger }}
                     />
                     <motion.span
                         animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-                        className={cn('block h-0.5 w-6 transition-all duration-300', isOnLimeSection ? 'bg-[#096260]' : 'bg-white')}
+                        className="block h-0.5 w-6 transition-all duration-300"
+                        style={{ backgroundColor: getHeaderColors(currentBgColor).hamburger }}
                     />
                     <motion.span
                         animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-                        className={cn('block h-0.5 w-6 transition-all duration-300', isOnLimeSection ? 'bg-[#096260]' : 'bg-white')}
+                        className="block h-0.5 w-6 transition-all duration-300"
+                        style={{ backgroundColor: getHeaderColors(currentBgColor).hamburger }}
                     />
                 </button>
             </div>

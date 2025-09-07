@@ -11,7 +11,7 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
         <footer className={cn('relative overflow-hidden bg-[#242422] pt-20 text-white', className)} id="contact">
             <div className="container mx-auto px-6">
                 <ScrollReveal direction="left" delay={0.1}>
-                    <h2 className="mb-18 text-4xl font-bold tracking-wide">GREEN LIME®</h2>
+                    <h2 className="mb-18 text-4xl font-bold tracking-wide">GREENLIME®</h2>
                 </ScrollReveal>
 
                 <div className="flex flex-col justify-between lg:flex-row lg:items-start">

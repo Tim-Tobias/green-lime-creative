@@ -19,13 +19,27 @@ createInertiaApp({
 
         root.render(
             <AppClientLayout>
-                <Preloader duration={1.2} delay={0} text="GREEN LIME" backgroundColor="#BDD330" textColor="#096260" />
-                <Header />
-                <PageTransition location={props.initialPage.url}>
-                    <CustomCursor size={100} color="red" />
+                {!props.initialPage.url.startsWith('/dashboard') &&
+                !props.initialPage.url.startsWith('/login') &&
+                !props.initialPage.url.startsWith('/register') &&
+                !props.initialPage.url.startsWith('/settings') ? (
+                    <>
+                        <Preloader duration={1.2} delay={0} text="GREEN LIME" backgroundColor="#BDD330" textColor="#096260" />
+                        <Header />
+                        <PageTransition location={props.initialPage.url}>
+                            <CustomCursor 
+                                size={50} 
+                                useImage={true} 
+                                adaptToSection={true} 
+                                trailEffect={true}
+                            />
+                            <App key={props.initialPage.component} {...props} />
+                        </PageTransition>
+                        <Footer />
+                    </>
+                ) : (
                     <App key={props.initialPage.component} {...props} />
-                </PageTransition>
-                <Footer />
+                )}
             </AppClientLayout>,
         );
     },

@@ -3,7 +3,6 @@ import PhotoSlider from '@/components/PhotoSlider';
 import { Head } from '@inertiajs/react';
 
 export default function Contact() {
-    // Unsplash photos for contact page
     const contactPhotos = [
         'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=1200&fit=crop&crop=center',
         'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=1200&fit=crop&crop=center',
@@ -28,9 +27,9 @@ export default function Contact() {
             <Head title="Contact Us" />
             <PageWrapper className="relative overflow-hidden">
                 {/* Main Contact Section */}
-                <section className="bg-white">
+                <section className="bg-white" data-bg-color="#E6E6E6">
                     <div className="container mx-auto">
-                        <div className="grid grid-cols-1 md:py-40 lg:grid-cols-2">
+                        <div className="grid grid-cols-1 pt-30 lg:grid-cols-2 lg:py-40">
                             {/* Left Photo Section */}
                             <div className="relative aspect-[3/4] px-5 lg:px-0">
                                 <PhotoSlider
@@ -39,6 +38,8 @@ export default function Contact() {
                                     showNavigation={false}
                                     showPagination={false}
                                     autoplay={true}
+                                    enableModal={true}
+                                    modalTitle="Contact Photo"
                                 />
                             </div>
 
@@ -62,8 +63,8 @@ export default function Contact() {
                                     </ScrollReveal>
 
                                     <ScrollReveal delay={0.4}>
-                                        <div className="mb-16 grid md:grid-cols-3">
-                                            <div className="mb-8 text-8xl text-black">*</div>
+                                        <div className="mb-16 grid gap-10 md:grid-cols-3 md:gap-0">
+                                            <img src="/logo/Logogram-lime.png" alt="" className="h-10 w-auto animate-spin md:h-20" />
 
                                             <div className="col-span-2 grid gap-8 md:grid-cols-2">
                                                 <div>
@@ -90,11 +91,11 @@ export default function Contact() {
                 </section>
 
                 {/* Offices Section */}
-                <section className="bg-gray-50 py-16">
+                <section className="bg-white lg:py-16" data-bg-color="#E6E6E6">
                     <div className="container mx-auto px-8 lg:px-16">
                         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                             {/* Left - OFFICES Text */}
-                            <div className="flex h-full flex-col justify-center md:border-r">
+                            <div className="flex h-full flex-col justify-center lg:border-r">
                                 <ScrollReveal delay={0.2}>
                                     <h2 className="mb-4 text-4xl font-bold text-black">OFFICES</h2>
                                     <div className="space-y-1 text-sm text-gray-600">
@@ -118,6 +119,8 @@ export default function Contact() {
                                                 showNavigation={false}
                                                 showPagination={false}
                                                 autoplay={true}
+                                                enableModal={true}
+                                                modalTitle="Office Photo Set 1"
                                             />
                                         </div>
                                         <div className="md:aspect-[3/4]">
@@ -127,6 +130,8 @@ export default function Contact() {
                                                 showNavigation={false}
                                                 showPagination={false}
                                                 autoplay={true}
+                                                enableModal={true}
+                                                modalTitle="Office Photo Set 2"
                                             />
                                         </div>
                                     </div>

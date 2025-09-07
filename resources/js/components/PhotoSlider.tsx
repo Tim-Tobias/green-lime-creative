@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import ModalBox from './ModalBox';
 import './PhotoSlider.css';
 
 interface PhotoSliderProps {
@@ -14,6 +15,8 @@ interface PhotoSliderProps {
     autoplay?: boolean;
     slidesPerView?: number;
     spaceBetween?: number;
+    enableModal?: boolean;
+    modalTitle?: string;
 }
 
 const PhotoSlider: React.FC<PhotoSliderProps> = ({
@@ -24,7 +27,18 @@ const PhotoSlider: React.FC<PhotoSliderProps> = ({
     autoplay = true,
     slidesPerView = 1,
     spaceBetween = 20,
+    enableModal = false,
+    modalTitle = 'Photo Gallery',
 }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalIndex, setModalIndex] = useState(0);
+
+    const handlePhotoClick = (index: number) => {
+        if (enableModal) {
+            setModalIndex(index);
+            setIsModalOpen(true);
+        }
+    };
     return (
         <div className={`photo-slider ${className}`}>
             <Swiper
@@ -72,7 +86,10 @@ const PhotoSlider: React.FC<PhotoSliderProps> = ({
             >
                 {photos.map((photo, index) => (
                     <SwiperSlide key={index}>
-                        <div className="relative h-full w-full">
+                        <div 
+                            className={`relative h-full w-full ${enableModal ? 'cursor-pointer' : ''}`}
+                            onClick={() => handlePhotoClick(index)}
+                        >
                             <img
                                 src={photo}
                                 alt={`Photo ${index + 1}`}
@@ -102,6 +119,28 @@ const PhotoSlider: React.FC<PhotoSliderProps> = ({
                 {/* Custom Pagination */}
                 {showPagination && <div className="swiper-pagination-custom absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 space-x-2"></div>}
             </Swiper>
+
+            {/* Modal Box */}
+            {enableModal && (
+                <ModalBox
+                    items={photos.map((photo, index) => ({
+                        content: (
+                            <img
+                                src={photo}
+                                alt={`${modalTitle} ${index + 1}`}
+                                className="h-full w-full object-contain"
+                            />
+                        ),
+                        title: `${modalTitle} ${index + 1}`,
+                    }))}
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    initialIndex={modalIndex}
+                    showNavigation={true}
+                    showPagination={false}
+                    showCounter={true}
+                />
+            )}
         </div>
     );
 };

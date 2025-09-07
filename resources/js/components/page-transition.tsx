@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 interface PageTransitionProps {
     children: ReactNode;
@@ -7,6 +7,22 @@ interface PageTransitionProps {
 }
 
 export const PageTransition = ({ children, location }: PageTransitionProps) => {
+    // Reset scroll position when location changes
+    useEffect(() => {
+        // Force immediate scroll reset
+        const resetScroll = () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        };
+        
+        resetScroll();
+        
+        // Additional reset after a brief delay to ensure it works
+        const timeoutId = setTimeout(resetScroll, 10);
+        
+        return () => clearTimeout(timeoutId);
+    }, [location]);
     const pageVariants = {
         initial: {
             opacity: 0,

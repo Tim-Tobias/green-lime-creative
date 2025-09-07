@@ -1,6 +1,6 @@
 import { PageWrapper, ScrollReveal } from '@/components/animations';
 import ProjectCard from '@/components/ui/project-card';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
 
 // Category Filter Component
@@ -998,7 +998,7 @@ interface ProjectGridProps {
 const ProjectGrid = ({ projects, subCategory, categoryNumber, subCategoryNumber }: ProjectGridProps) => {
     if (projects.length === 0) {
         return (
-            <section className="container mx-auto py-20">
+            <section className="container mx-auto py-20" data-bg-color="#E6E6E6">
                 <div className="px-6 text-center">
                     <h2 className="mb-4 text-2xl font-bold text-gray-600">{subCategory}</h2>
                     <p className="text-gray-500">No projects found in this category.</p>
@@ -1008,7 +1008,7 @@ const ProjectGrid = ({ projects, subCategory, categoryNumber, subCategoryNumber 
     }
 
     return (
-        <section className="container mx-auto border-t border-gray-500 py-10 md:py-20">
+        <section className="container mx-auto border-t border-gray-500 py-10 md:py-20" data-bg-color="#E6E6E6">
             <div className="px-6">
                 <div className="grid grid-cols-1 gap-0 lg:grid-cols-12">
                     {/* Left Column - Category */}
@@ -1031,13 +1031,14 @@ const ProjectGrid = ({ projects, subCategory, categoryNumber, subCategoryNumber 
                     <div className="lg:col-span-9 lg:pl-16">
                         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:gap-16">
                             {projects.map((project, index) => (
-                                <ProjectCard
-                                    key={index}
-                                    title={project.title}
-                                    description={project.description}
-                                    imageUrl={project.imageUrl}
-                                    delay={0.4 + index * 0.2}
-                                />
+                                <Link key={project.id} href={`/work/${project.id}`}>
+                                    <ProjectCard
+                                        title={project.title}
+                                        description={project.description}
+                                        imageUrl={project.imageUrl}
+                                        delay={0.4 + index * 0.2}
+                                    />
+                                </Link>
                             ))}
                         </div>
                     </div>
@@ -1098,7 +1099,7 @@ export default function Works() {
         <PageWrapper className="bg-white">
             <Head title="Works" />
             {/* Hero Section */}
-            <section className="py-20 lg:py-32">
+            <section className="pt-30 pb-20 lg:py-32" data-bg-color="#E6E6E6">
                 <div className="relative container mx-auto space-y-7 px-6">
                     {/* Left Column - Main Title */}
                     <ScrollReveal delay={0.3}>
@@ -1107,7 +1108,10 @@ export default function Works() {
                             <br />
                             IMPACT,
                             <br />
-                            <span className="text-[#BDD330]">*</span> THROUGH
+                            <span className="inline-block">
+                                <img src="/logo/Logogram-lime.png" alt="" className="h-15 w-15 animate-spin" />
+                            </span>{' '}
+                            THROUGH
                             <br />
                             CREATIVITY.
                         </h1>
@@ -1129,7 +1133,7 @@ export default function Works() {
             </section>
 
             {/* Category Filter */}
-            <CategoryFilter
+            {/* <CategoryFilter
                 categories={categories}
                 selectedCategory={selectedCategory}
                 selectedSubcategory={selectedSubcategory}
@@ -1138,7 +1142,7 @@ export default function Works() {
                     setSelectedSubcategory('all');
                 }}
                 onSubcategoryChange={setSelectedSubcategory}
-            />
+            /> */}
 
             {/* Portfolio Sections */}
             {selectedCategory === 'all' ? (

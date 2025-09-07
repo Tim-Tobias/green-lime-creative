@@ -1,6 +1,7 @@
 import { ScrollReveal } from '@/components/animations';
 import PageWrapper from '@/components/animations/page-wrapper';
 import { Head } from '@inertiajs/react';
+import { ArrowUpRight } from 'lucide-react';
 
 export default function Careers() {
     const jobPositions = [
@@ -36,25 +37,27 @@ export default function Careers() {
 
             {/* Main Careers Section */}
             <section className="relative min-h-screen overflow-hidden bg-[#C4D82F]" data-bg-color="#C4D82F">
-                <div className="container mx-auto px-6 py-16 lg:py-24">
+                <div className="container mx-auto px-6 py-30 lg:py-24">
                     <div className="grid min-h-[80vh] grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-16">
                         {/* Left Content */}
                         <div className="flex flex-col justify-between lg:col-span-7">
                             {/* Main Heading */}
                             <ScrollReveal delay={0.5}>
-                                <h1 className="relative mb-4 text-left text-4xl leading-tight font-bold text-[#2B5F44] md:text-6xl lg:text-7xl xl:text-8xl">
+                                <h1 className="relative mb-4 text-left text-5xl leading-tight font-bold text-[#2B5F44] md:text-6xl lg:text-7xl xl:text-8xl">
                                     MAKE THE
                                     <br />
-                                    <span className="absolute text-6xl md:text-8xl lg:text-9xl xl:text-[10rem]">*</span>
-                                    <span className="ml-20">FUTURE</span>
+                                    <span className="inline-block">
+                                        <img src="/logo/Logogram-teal.png" alt="" className="h-10 w-auto animate-spin md:h-20" />
+                                    </span>{' '}
+                                    FUTURE
                                     <br />
                                     JEALOUS.
                                 </h1>
                             </ScrollReveal>
 
                             {/* Job Positions */}
-                            <ScrollReveal delay={1}>
-                                <div className="bottom-1/4 mb-16 space-y-6 md:absolute">
+                            <ScrollReveal delay={0.5}>
+                                <div className="bottom-1/4 mb-16 space-y-6 lg:absolute">
                                     {jobPositions.map((job, index) => (
                                         <div key={index} className={`${(index + 1) % 2 === 0 && index !== jobPositions.length - 1 ? 'pb-6' : ''}`}>
                                             <div className="mt-10 flex md:mt-0">
@@ -91,9 +94,14 @@ export default function Careers() {
 
                                     {/* Apply Button */}
                                     <div className="pt-6">
-                                        <button className="rounded-full bg-[#2B5F44] px-8 py-3 text-lg font-bold text-[#C4D82F] transition-colors duration-300 hover:bg-[#1a3d2b]">
-                                            APPLY HERE
-                                        </button>
+                                        <form action="mailto:hi@greenlimecreative.com" method="POST">
+                                            <button
+                                                type="submit"
+                                                className="flex items-center gap-1 rounded-full bg-[#2B5F44] px-8 py-2 text-lg font-bold text-[#C4D82F] transition-colors duration-300 hover:bg-[#1a3d2b]"
+                                            >
+                                                <span className="mt-2">APPLY HERE</span> <ArrowUpRight />
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </ScrollReveal>

@@ -1,6 +1,6 @@
 import { VideoPlayer, WorkCard } from '@/components';
 import { ImageReveal, PageWrapper, ScrollReveal } from '@/components/animations';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 
 import { Button } from '@/components/ui/button';
@@ -73,7 +73,7 @@ export default function Welcome() {
 
             <PageWrapper className="relative flex min-h-screen flex-col overflow-hidden">
                 {/* Hero Section */}
-                <section className="flex-grow bg-[#096260] text-white">
+                <section className="flex-grow bg-[#096260] text-white" data-bg-color="#096260">
                     <div className="container mx-auto grid items-center justify-between gap-5 px-6 py-34 md:py-40 lg:grid-cols-3">
                         <div className="relative lg:col-span-2">
                             <div className="mb-6 text-center lg:text-left">
@@ -82,7 +82,10 @@ export default function Welcome() {
                                     <br />
                                     IMPACT.
                                     <br />
-                                    * THROUGH
+                                    <span className="inline-block">
+                                        <img src="/logo/Logogram-lime.png" alt="" className="h-10 w-auto animate-spin md:h-20" />
+                                    </span>{' '}
+                                    THROUGH
                                     <br />
                                     CREATIVITY.
                                 </h1>
@@ -123,7 +126,7 @@ export default function Welcome() {
                 </section>
 
                 {/* About Section */}
-                <section className="bg-[#E6E6E6] py-20">
+                <section className="bg-[#E6E6E6] py-20" data-bg-color="#E6E6E6">
                     <div className="container mx-auto px-6">
                         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
                             <div className="md:w-1/2">
@@ -132,14 +135,14 @@ export default function Welcome() {
                                         We are a creative agency that specializes in brand identity, digital experiences, and content creation. Our
                                         mission is to help brands tell their stories in compelling and authentic ways.
                                     </p>
-                                    <div className="mx-auto w-fit md:mx-0">
+                                    <Link href="/works" className="flex items-center justify-center md:justify-start">
                                         <Button
                                             variant="outline"
                                             className="mt-6 rounded-full border border-gray-400 bg-transparent px-6 py-2 text-xs tracking-wider text-black uppercase"
                                         >
                                             SEE THE WORK
                                         </Button>
-                                    </div>
+                                    </Link>
                                 </ScrollReveal>
                             </div>
                             <div className="flex justify-end md:w-1/2">
@@ -161,7 +164,9 @@ export default function Welcome() {
                         <div className="grid gap-8 md:grid-cols-3">
                             {workData.map((work, index) => (
                                 <ScrollReveal key={index} direction="right" delay={0.3 * (index + 1)}>
-                                    <WorkCard title={work.title} description={work.description} image={work.image} className="h-full" />
+                                    <Link href={`/work/${index}`}>
+                                        <WorkCard title={work.title} description={work.description} image={work.image} className="h-full" />
+                                    </Link>
                                 </ScrollReveal>
                             ))}
                         </div>

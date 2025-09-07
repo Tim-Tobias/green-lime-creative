@@ -15,11 +15,12 @@ export const scrollToElement = (lenis: Lenis | null, selector: string, offset = 
 };
 
 // Scroll to top
-export const scrollToTop = (lenis: Lenis | null) => {
+export const scrollToTop = (lenis: Lenis | null, immediate = false) => {
     if (!lenis) return;
     
     lenis.scrollTo(0, {
-        duration: 1.2
+        duration: immediate ? 0 : 1.2,
+        immediate
     });
 };
 

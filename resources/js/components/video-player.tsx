@@ -16,6 +16,7 @@ interface VideoPlayerProps {
     className?: string;
     width?: string | number;
     height?: string | number;
+    cursorFollowing?: boolean;
 }
 
 export const VideoPlayer = ({
@@ -26,6 +27,7 @@ export const VideoPlayer = ({
     className = '',
     width = '100%',
     height = '100%',
+    cursorFollowing = true,
 }: VideoPlayerProps) => {
     const [playing, setPlaying] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
@@ -148,7 +150,7 @@ export const VideoPlayer = ({
                     controls={false}
                     ref={playerRef}
                 />
-                <PlayButton onClick={togglePlay} isHovering={isHovering} cursorPosition={cursorPosition} playing={playing} />
+                <PlayButton onClick={togglePlay} isHovering={isHovering} cursorPosition={cursorFollowing ? cursorPosition : { x: 0, y: 0 }} playing={playing} cursorFollowing={cursorFollowing} />
             </div>
             <FullscreenButton onClick={toggleFullscreen} isHovering={isHovering} playing={playing} isFullscreen={isFullscreen} />
             <VideoVolume volume={volume} onVolumeChange={handleVolumeChange} isHovering={isHovering} playing={playing} isFullscreen={isFullscreen} />

@@ -27,7 +27,7 @@ export default function About() {
             <Head title="About Us" />
             <PageWrapper className="relative flex min-h-screen flex-col overflow-hidden">
                 {/* Hero Section */}
-                <section className="min-h-[90vh] flex-grow bg-[#096260] text-white">
+                <section className="min-h-[90vh] flex-grow bg-[#096260] text-white" data-bg-color="#096260">
                     <div className="relative container mx-auto px-6 py-20 md:py-32 lg:py-40">
                         <div className="space-y-8">
                             <ScrollReveal delay={1.3}>
@@ -60,7 +60,7 @@ export default function About() {
                 </section>
 
                 {/* GREENLIME CREATIVE STUDIO Section */}
-                <section className="bg-[#096260] py-16">
+                <section className="bg-[#096260] py-16" data-bg-color="#096260">
                     <div className="container mx-auto px-6">
                         <div className="flex flex-col items-center">
                             <div className="mb-10 w-full border-t-2 border-[#BDD330]"></div>
@@ -75,7 +75,7 @@ export default function About() {
                 </section>
 
                 {/* Agency Snapshot Section */}
-                <section className="bg-[#096260] py-20">
+                <section className="bg-[#096260] py-20" data-bg-color="#096260">
                     <div className="container mx-auto px-6">
                         <div className="grid grid-cols-1 gap-16 lg:grid-cols-3 lg:gap-24">
                             {/* Agency Snapshot Title */}

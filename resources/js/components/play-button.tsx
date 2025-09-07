@@ -5,20 +5,21 @@ interface PlayButtonProps {
     isHovering: boolean;
     cursorPosition: { x: number; y: number };
     playing: boolean;
+    cursorFollowing?: boolean;
 }
 
-export const PlayButton = ({ onClick, isHovering, cursorPosition, playing }: PlayButtonProps) => {
+export const PlayButton = ({ onClick, isHovering, cursorPosition, playing, cursorFollowing = true }: PlayButtonProps) => {
     return (
         <motion.div
             className="absolute focus:outline-none"
             initial={{ opacity: 0 }}
             animate={{
-                left: isHovering ? `${cursorPosition.x}px` : '50%',
-                top: isHovering ? `${cursorPosition.y}px` : '50%',
+                left: isHovering && cursorFollowing ? `${cursorPosition.x}px` : '50%',
+                top: isHovering && cursorFollowing ? `${cursorPosition.y}px` : '50%',
                 opacity: playing ? 0 : 1,
                 scale: playing ? 0.8 : 1,
-                x: isHovering ? 0 : '-50%',
-                y: isHovering ? 0 : '-50%',
+                x: isHovering && cursorFollowing ? 0 : '-50%',
+                y: isHovering && cursorFollowing ? 0 : '-50%',
             }}
             transition={{
                 left: { type: 'spring', stiffness: 150, damping: 15, mass: 0.1 },

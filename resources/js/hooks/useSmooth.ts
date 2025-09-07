@@ -26,6 +26,22 @@ export const useSmooth = () => {
 
         requestAnimationFrame(raf);
 
+        // Reset scroll position on page load
+        const resetInitialScroll = () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            
+            if (lenisRef.current) {
+                lenisRef.current.scrollTo(0, { immediate: true });
+            }
+        };
+        
+        resetInitialScroll();
+        
+        // Additional reset after Lenis is fully initialized
+        setTimeout(resetInitialScroll, 50);
+
         // Cleanup
         return () => {
             lenisRef.current?.destroy();
