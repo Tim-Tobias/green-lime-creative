@@ -157,7 +157,7 @@ const WorkDetail: React.FC<WorkDetailProps> = ({ work }) => {
                                 <ScrollReveal delay={0.5}>
                                     <h2 className="my-3 text-4xl font-bold text-black md:text-5xl lg:text-7xl">
                                         BEHIND THE SCENE
-                                        <span className="text-3xl">®</span>
+                                        <span className="text-7xl">®</span>
                                     </h2>
                                 </ScrollReveal>
                                 <div className="mt-10 w-full border-b-2 border-black"></div>
@@ -174,8 +174,8 @@ const WorkDetail: React.FC<WorkDetailProps> = ({ work }) => {
                             {work.gallery?.map((image, index) => (
                                 <ScrollReveal key={index} direction="up" delay={0.1 * (index + 1)}>
                                     <div className="mb-6 break-inside-avoid">
-                                        <div 
-                                            className="group relative overflow-hidden rounded-lg bg-gray-100 shadow-lg transition-all duration-300 hover:shadow-xl cursor-pointer"
+                                        <div
+                                            className="group relative cursor-pointer overflow-hidden rounded-lg bg-gray-100 shadow-lg transition-all duration-300 hover:shadow-xl"
                                             onClick={() => openGalleryModal(index)}
                                         >
                                             <img
